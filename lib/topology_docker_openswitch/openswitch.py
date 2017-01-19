@@ -181,11 +181,18 @@ class DockerOpenSwitch(OpenSwitchBase, DockerNode):
         #. Create remaining interfaces.
         """
 
+        # workaround for halon_0 devices
+        if self.metadata['type'] == 'halon_0':
+            script_name = 'openswitch_setup_halon_0'
+        else:
+            script_name = 'openswitch_setup'
         # Write and execute setup script
         with open(
-            join(dirname(normpath(abspath(__file__))), 'openswitch_setup')
+            join(dirname(normpath(abspath(__file__))), script_name)
         ) as openswitch_setup_file:
             openswitch_setup = openswitch_setup_file.read()
+        # end of workaround code which added variable script name to this
+        # file open procedure
 
         setup_script = '{}/openswitch_setup.py'.format(self.shared_dir)
         with open(setup_script, 'w') as fd:
