@@ -42,7 +42,7 @@ def create_interfaces():
             text_match = match(as5712_re, hwports[port_num])
             if text_match:
                 hwports[port_num] = 'm1s1p{}'.format(text_match.group(1))
-                if len(text_match.groups()) > 3:
+                if text_match.group(3):
                     hwports[port_num] += '-{}'.format(text_match.group(3))
                 continue
     # end of workaround
