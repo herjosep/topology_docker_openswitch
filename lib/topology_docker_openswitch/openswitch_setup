@@ -36,18 +36,14 @@ def create_interfaces():
     hwports = [str(p['name']) for p in ports_hwdesc['ports']]
     # workaround for devices with port rename
     modular_re = r'm(\d+)s(\d+)p(\d+)(-(\d+))?'
-    as5712_re = r'(\d+)'
-    ridlye_re = r'(\d+)-(\d+)'
+    as5712_re = r'(\d+)(-(\d+))?'
     for port_num in range(len(hwports)):
         if not match(modular_re, hwports[port_num]):
             text_match = match(as5712_re, hwports[port_num])
             if text_match:
                 hwports[port_num] = 'm1s1p{}'.format(text_match.group(1))
-                continue
-            text_match = match(ridley_re, hwports[port_num])
-            if text_match:
-                hwports[port_num] = 'm1s{}p{}'.format(
-                    text_match.group(1), text_match.group(2))
+                if len(text_match.groups()) > 1:
+                    hwports[port_num] += '-{}'.format(text_match.group(3))
                 continue
     # end of workaround
 
