@@ -182,9 +182,11 @@ class DockerOpenSwitch(OpenSwitchBase, DockerNode):
         """
 
         # workaround for halon_0 devices
+        """
         assert self.metadata['type'] == 'halon_0',\
             'Error: Invalid device type {} for device {}'.format(
             self.metadata['type'], self.identifier)
+        """
         if self.metadata['type'] == 'halon_0':
             script_name = 'openswitch_setup_halon_0'
         else:
