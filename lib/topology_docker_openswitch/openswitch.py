@@ -187,7 +187,7 @@ class DockerOpenSwitch(OpenSwitchBase, DockerNode):
             'Error: Invalid device type {} for device {}'.format(
             self.metadata['type'], self.identifier)
         """
-        if self.metadata['type'] == 'halon_0':
+        if self.metadata['type'] == 'halon_0' or self.metadata['type'] == 'openswitch':
             script_name = 'openswitch_setup_halon_0'
         else:
             script_name = 'openswitch_setup'
